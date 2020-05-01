@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 
 namespace FizzBuzz
 {
@@ -8,26 +9,37 @@ namespace FizzBuzz
         static void Main(/*string[] args*/)
         {
             Console.WriteLine("Begin FizzBuzz!");
-            Stopwatch stopwatch = new Stopwatch();
+            Stopwatch stopWatch = new Stopwatch();
 
-            stopwatch.Start();
-            var fizzbuzzer = new FizzBuzz(100);
-            fizzbuzzer.DoWork();
-            stopwatch.Stop();
+            stopWatch.Start();
 
-            TimeSpan ts = stopwatch.Elapsed;
+            var fb1 = new FizzBuzz(5000);
+            fb1.DoAsyncWork();
 
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+            var fb2 = new FizzBuzz(5000);
+            fb2.DoAsyncWork();
+
+            var fb3 = new FizzBuzz(5000);
+            fb3.DoAsyncWork();
+
+            while (
+                !fb1.Complete
+                || !fb2.Complete
+                || !fb3.Complete
+                )
+            {
+                Thread.Sleep(1);
+            }
+
+            stopWatch.Stop();
+
+            TimeSpan timeSpan = stopWatch.Elapsed;
+
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds, timeSpan.Milliseconds / 10);
             Console.WriteLine("RunTime " + elapsedTime);
             Console.WriteLine("End FizzBuzz.");
-            
-            bool endProgram = false;
-            while (!endProgram)
-            {
-                Console.WriteLine("Enter Y to continue...");
-                string line = Console.ReadLine();
-                endProgram = String.Compare(line, "Y", true) == 0;
-            }
+
+            Console.ReadKey();
         }
     }
 }
