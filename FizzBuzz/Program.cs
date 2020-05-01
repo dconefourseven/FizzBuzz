@@ -6,8 +6,8 @@ namespace FizzBuzz
 {
     class Program
     {
-        const int m_target = 50000;
-        //const int m_numCounters = 3;
+        const int m_target = 100000;
+        const int m_numCounters = 4;
 
         static void Main(/*string[] args*/)
         {
@@ -35,22 +35,30 @@ namespace FizzBuzz
 
             stopWatch.Start();
 
-            var fb1 = new FizzBuzz(m_target);
-            fb1.DoWork();
+            FizzBuzz[] fizzbuzzers = new FizzBuzz[m_numCounters];
+            for (int index = 0; index < m_numCounters; ++index)
+            {
+                fizzbuzzers[index] = new FizzBuzz(m_target);
+            }
 
-            var fb2 = new FizzBuzz(m_target);
-            fb2.DoWork();
+            foreach (var fb in fizzbuzzers)
+            {
+                fb.DoWork();
+            }
 
-            var fb3 = new FizzBuzz(m_target);
-            fb3.DoWork();
-
-            //while (
-            //    !fb1.Complete
-            //    || !fb2.Complete
-            //    || !fb3.Complete
-            //    )
+            // There's no need to check that they've all finished. They're synchronous.  
+            //bool allComplete = false;
+            //while (!allComplete)
             //{
-            //    Thread.Sleep(1);
+            //    allComplete = true;
+            //    foreach (var fb in fizzbuzzers)
+            //    {
+            //        if (!fb.Complete)
+            //        {
+            //            allComplete = false;
+            //            break;
+            //        }
+            //    }
             //}
 
             stopWatch.Stop();
@@ -65,24 +73,33 @@ namespace FizzBuzz
 
             stopWatch.Start();
 
-            var fb1 = new FizzBuzz(m_target);
-            fb1.DoAsyncWork();
-
-            var fb2 = new FizzBuzz(m_target);
-            fb2.DoAsyncWork();
-
-            var fb3 = new FizzBuzz(m_target);
-            fb3.DoAsyncWork();
-
-            while (
-                !fb1.Complete
-                || !fb2.Complete
-                || !fb3.Complete
-                )
+            FizzBuzz[] fizzbuzzers = new FizzBuzz[m_numCounters];
+            for (int index = 0; index < m_numCounters; ++index)
             {
-                Console.Write('.');
-                Thread.Sleep(1);
+                fizzbuzzers[index] = new FizzBuzz(m_target);
             }
+
+            foreach (var fb in fizzbuzzers)
+            {
+                fb.DoAsyncWork();
+            }
+
+            // This work is overhead that must be done to ensure that all of the work has been completed.
+            bool allComplete = false;
+            while (!allComplete)
+            {
+                allComplete = true;
+                foreach (var fb in fizzbuzzers)
+                {
+                    if (!fb.Complete)
+                    {
+                        allComplete = false;
+                        break;
+                    }
+                }
+                Console.Write('.');
+            }
+
             Console.WriteLine();
             stopWatch.Stop();
 
