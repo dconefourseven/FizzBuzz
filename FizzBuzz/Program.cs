@@ -6,7 +6,7 @@ namespace FizzBuzz
 {
     class Program
     {
-        const int m_numCounters = 200;
+        const int m_target = 1000000;
         const int m_numCounters = 500;
 
         static void Main(/*string[] args*/)
@@ -19,11 +19,12 @@ namespace FizzBuzz
             var timeSpanAsync = DoAsyncWork();
             Console.WriteLine("Do async work complete.");
 
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds, timeSpan.Milliseconds / 10);
-            Console.WriteLine("Sync " + elapsedTime);
+            Console.WriteLine("C# Results");
+            string elapsedTime = String.Format("Sync: Time Taken: {0}s {1}ms", timeSpan.Seconds, timeSpan.Milliseconds);
+            Console.WriteLine(elapsedTime);
 
-            elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", timeSpanAsync.Hours, timeSpanAsync.Minutes, timeSpanAsync.Seconds, timeSpanAsync.Milliseconds / 10);
-            Console.WriteLine("Async " + elapsedTime);
+            elapsedTime = String.Format("Async: Time Taken: {0}s {1}ms", timeSpanAsync.Seconds, timeSpanAsync.Milliseconds);
+            Console.WriteLine(elapsedTime);
 
             Console.WriteLine("Press any key to continue.");
             Console.ReadKey();
