@@ -25,6 +25,7 @@ namespace FizzBuzz
 
         public void DoWork()
         {
+            Console.WriteLine("Begin FizzBuzz!");
             m_complete = false;
 
             int index = 1;
@@ -49,12 +50,14 @@ namespace FizzBuzz
 
                 ++index;
             }
-
+            
+            Console.WriteLine("End FizzBuzz!");
             m_complete = true;
         }
 
         public async void DoAsyncWork()
         {
+            Console.WriteLine("Begin FizzBuzz!");
             m_complete = false;
 
             await Task.Run(() =>
@@ -83,6 +86,7 @@ namespace FizzBuzz
                 }
             });
 
+            Console.WriteLine("End FizzBuzz!");
             m_complete = true;
         }
     }
