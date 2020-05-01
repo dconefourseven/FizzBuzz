@@ -14,6 +14,8 @@ namespace FizzBuzz
         private bool m_complete = false;
         public bool Complete { get { return m_complete; } private set { m_complete = value; } }
 
+        private string m_buffer = "";
+
         // ---- Constructor ----
 
         public FizzBuzz(int _target)
@@ -25,7 +27,8 @@ namespace FizzBuzz
 
         public void DoWork()
         {
-            Console.WriteLine("Begin FizzBuzz!");
+            m_buffer = "";
+            m_buffer += "Begin FizzBuzz!\n";
             m_complete = false;
 
             int index = 1;
@@ -33,31 +36,32 @@ namespace FizzBuzz
             {
                 if (((index % 3) == 0) && ((index % 5) == 0))
                 {
-                    Console.WriteLine("FizzBuzz");
+                    m_buffer += "FizzBuzz\n";
                 }
                 else if ((index % 3) == 0)
                 {
-                    Console.WriteLine("Fizz");
+                    m_buffer += "Fizz\n";
                 }
                 else if ((index % 5) == 0)
                 {
-                    Console.WriteLine("Buzz");
+                    m_buffer += "Buzz\n";
                 }
                 else
                 {
-                    Console.WriteLine("{0}", index);
+                    m_buffer += String.Format("{0}\n", index);
                 }
 
                 ++index;
             }
-            
-            Console.WriteLine("End FizzBuzz!");
+
+            m_buffer += "End FizzBuzz!\n";
             m_complete = true;
         }
 
         public async void DoAsyncWork()
         {
-            Console.WriteLine("Begin FizzBuzz!");
+            m_buffer = "";
+            m_buffer += "Begin FizzBuzz!\n";
             m_complete = false;
 
             await Task.Run(() =>
@@ -67,26 +71,26 @@ namespace FizzBuzz
                 {
                     if (((index % 3) == 0) && ((index % 5) == 0))
                     {
-                        Console.WriteLine("FizzBuzz");
+                        m_buffer += "FizzBuzz\n";
                     }
                     else if ((index % 3) == 0)
                     {
-                        Console.WriteLine("Fizz");
+                        m_buffer += "Fizz\n";
                     }
                     else if ((index % 5) == 0)
                     {
-                        Console.WriteLine("Buzz");
+                        m_buffer += "Buzz\n";
                     }
                     else
                     {
-                        Console.WriteLine("{0}", index);
+                        m_buffer += String.Format("{0}\n", index);
                     }
 
                     ++index;
                 }
             });
 
-            Console.WriteLine("End FizzBuzz!");
+            m_buffer += "End FizzBuzz!\n";
             m_complete = true;
         }
     }

@@ -6,20 +6,26 @@ namespace FizzBuzz
 {
     class Program
     {
-        const int m_target = 10000;
+        const int m_target = 50000;
         //const int m_numCounters = 3;
 
         static void Main(/*string[] args*/)
         {
+            Console.WriteLine("Do work.");
             var timeSpan = DoWork();
+            Console.WriteLine("Do work complete.");
+
+            Console.WriteLine("Do async work.");
             var timeSpanAsync = DoAsyncWork();
+            Console.WriteLine("Do async work complete.");
 
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds, timeSpan.Milliseconds / 10);
-            Console.WriteLine("RunTime " + elapsedTime);
+            Console.WriteLine("Sync " + elapsedTime);
 
             elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", timeSpanAsync.Hours, timeSpanAsync.Minutes, timeSpanAsync.Seconds, timeSpanAsync.Milliseconds / 10);
-            Console.WriteLine("RunTime " + elapsedTime);
+            Console.WriteLine("Async " + elapsedTime);
 
+            Console.WriteLine("Press any key to continue.");
             Console.ReadKey();
         }
 
@@ -38,14 +44,14 @@ namespace FizzBuzz
             var fb3 = new FizzBuzz(m_target);
             fb3.DoWork();
 
-            while (
-                !fb1.Complete
-                || !fb2.Complete
-                || !fb3.Complete
-                )
-            {
-                Thread.Sleep(1);
-            }
+            //while (
+            //    !fb1.Complete
+            //    || !fb2.Complete
+            //    || !fb3.Complete
+            //    )
+            //{
+            //    Thread.Sleep(1);
+            //}
 
             stopWatch.Stop();
 
@@ -74,9 +80,10 @@ namespace FizzBuzz
                 || !fb3.Complete
                 )
             {
+                Console.Write('.');
                 Thread.Sleep(1);
             }
-
+            Console.WriteLine();
             stopWatch.Stop();
 
             TimeSpan timeSpan = stopWatch.Elapsed;
