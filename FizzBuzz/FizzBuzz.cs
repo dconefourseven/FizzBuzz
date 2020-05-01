@@ -11,8 +11,7 @@ namespace FizzBuzz
 
         private int m_countTarget = 0;
 
-        private bool m_complete = false;
-        public bool Complete { get { return m_complete; } private set { m_complete = value; } }
+        public bool Complete { get; private set; } = false;
 
         private string m_buffer = "";
 
@@ -27,42 +26,43 @@ namespace FizzBuzz
 
         public void DoWork()
         {
-            m_buffer = "";
-            m_buffer += "Begin FizzBuzz!\n";
-            m_complete = false;
+            StringBuilder sb = new System.Text.StringBuilder();            
+            sb.Append("Begin FizzBuzz!\n");
+            Complete = false;
 
             int index = 1;
             while (index <= m_countTarget)
             {
                 if (((index % 3) == 0) && ((index % 5) == 0))
                 {
-                    m_buffer += "FizzBuzz\n";
+                    sb.Append("FizzBuzz\n");
                 }
                 else if ((index % 3) == 0)
                 {
-                    m_buffer += "Fizz\n";
+                    sb.Append("Fizz\n");
                 }
                 else if ((index % 5) == 0)
                 {
-                    m_buffer += "Buzz\n";
+                    sb.Append("Buzz\n");
                 }
                 else
                 {
-                    m_buffer += String.Format("{0}\n", index);
+                    sb.Append(String.Format("{0}\n", index));
                 }
 
                 ++index;
             }
 
-            m_buffer += "End FizzBuzz!\n";
-            m_complete = true;
+            sb.Append("End FizzBuzz!\n");
+            m_buffer = sb.ToString();
+            Complete = true;
         }
 
         public async void DoAsyncWork()
         {
-            m_buffer = "";
-            m_buffer += "Begin FizzBuzz!\n";
-            m_complete = false;
+            StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append("Begin FizzBuzz!\n");
+            Complete = false;
 
             await Task.Run(() =>
             {
@@ -71,27 +71,27 @@ namespace FizzBuzz
                 {
                     if (((index % 3) == 0) && ((index % 5) == 0))
                     {
-                        m_buffer += "FizzBuzz\n";
+                        sb.Append("FizzBuzz\n");
                     }
                     else if ((index % 3) == 0)
                     {
-                        m_buffer += "Fizz\n";
+                        sb.Append("Fizz\n");
                     }
                     else if ((index % 5) == 0)
                     {
-                        m_buffer += "Buzz\n";
+                        sb.Append("Buzz\n");
                     }
                     else
                     {
-                        m_buffer += String.Format("{0}\n", index);
+                        sb.Append(String.Format("{0}\n", index));
                     }
 
                     ++index;
                 }
             });
 
-            m_buffer += "End FizzBuzz!\n";
-            m_complete = true;
+            sb.Append("End FizzBuzz!\n");
+            Complete = true;
         }
     }
 }
