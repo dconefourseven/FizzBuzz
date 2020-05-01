@@ -26,6 +26,7 @@ namespace FizzBuzz
 
         public void DoWork()
         {
+            m_buffer = "";
             StringBuilder sb = new System.Text.StringBuilder();            
             sb.Append("Begin FizzBuzz!\n");
             Complete = false;
@@ -60,6 +61,7 @@ namespace FizzBuzz
 
         public async void DoAsyncWork()
         {
+            m_buffer = "";
             StringBuilder sb = new System.Text.StringBuilder();
             sb.Append("Begin FizzBuzz!\n");
             Complete = false;
@@ -91,6 +93,7 @@ namespace FizzBuzz
             });
 
             sb.Append("End FizzBuzz!\n");
+            m_buffer = sb.ToString();
             Complete = true;
         }
     }
