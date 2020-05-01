@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+/.vs/FizzBuzz/v16/.suo
+/FizzBuzz/bin/Debug/netcoreapp3.1
+/FizzBuzz/obj
+/.vs
