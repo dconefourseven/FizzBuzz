@@ -6,8 +6,8 @@ namespace FizzBuzz
 {
     class Program
     {
-        const int m_target = 100000;
         const int m_numCounters = 200;
+        const int m_numCounters = 500;
 
         static void Main(/*string[] args*/)
         {
